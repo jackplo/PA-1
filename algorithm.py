@@ -1,27 +1,30 @@
 
+from collections import deque
 
-def initialize_free_rankings(n) -> dict(int, int):
-    '''
-    Docstring for initialize_rankings
-    
-    :param n: number of hospitals that will be matched
-    :return: dictionary of unmatched hospitals {1:0, 2:0, 3:0}
-    
-    ex:
-        input:
-        3
-       
-        output:
-        hosp {
-            1: 0,
-            2: 0,
-            3: 0
-            
-        }
-        
-    '''
-    
-    if n < 0:
-        raise ValueError("n must be non-negative")
-    return {i: 0 for i in range(1, n + 1)}
-    
+def gale_shapley(n: int, hospital_pref: dict[int, list[int]], student_pref: dict[int, list[int]]) -> dict[int, int]:
+    hospital_match = {i: 0 for i in range(1, n + 1)}
+    student_match = {i: 0 for i in range(1, n + 1)}
+
+    unmatched = deque(hospital_match.keys())
+    while unmatched:
+        h = unmatched[0]
+        a = hospital_pref[0]
+
+        if student_match[a] == 0:
+            hospital_match[h] = a
+            student_match[a] = h
+            unmatched.popleft()
+        else:
+            h_prime = student_match[a]
+
+            prefs = list(student_pref[a])
+            idx_h = prefs.index(h)
+            idx_h_prime = prefs.index(h_prime)
+
+            if (idx_h > idx_h_prime):
+                hospital_match[h_prime] = 0
+                unmatched.append(h_prime)
+                student_match[a] = h
+                hospital_match[h] = a
+            else:
+                unmatched.popleft()
