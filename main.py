@@ -1,8 +1,12 @@
 import sys
-from algorithm import initialize_free_rankings
+from algorithm import gale_shapley
+from util import read_input_file
 
 def main(args):
-    print("hospital unmatch init ", initialize_free_rankings(int(args[0])))
+    file = read_input_file(args[0])
+    print(file[1])
+    print(file[2])
+    print(gale_shapley(file[0],file[1],file[2]))
     
     
 
