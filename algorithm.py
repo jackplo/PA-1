@@ -6,30 +6,32 @@ def gale_shapley(n: int, hospital_pref: dict[int, list[int]], student_pref: dict
     student_match = {i: 0 for i in range(1, n + 1)}
 
     unmatched = deque(list(hospital_match.keys()))
+
     while unmatched:
         h = unmatched[0]
         a = hospital_pref[h][0]
         
-        if student_match[a] == 0:
+        if (student_match[a] == 0):
             hospital_match[h] = a
             student_match[a] = h
+            hospital_pref[h].pop(0)
             unmatched.popleft()
         else:
+            
             h_prime = student_match[a]
+            idx_h = student_pref[a].index(h)
+            idx_h_prime = student_pref[a].index(h_prime)
 
-            prefs = list(student_pref[a])
-            idx_h = prefs.index(h)
-            idx_h_prime = prefs.index(h_prime)
-
-            if (idx_h < idx_h_prime):
-                unmatched.popleft()
-                hospital_match[h_prime] = 0
-                unmatched.append(h_prime)
-                student_match[a] = h
+            if idx_h < idx_h_prime:
                 hospital_match[h] = a
-                
+                student_match[a] = h
+
+                hospital_pref[h].pop(0)
+                unmatched.popleft()
+
+                hospital_match[h_prime] = 0
+                unmatched.appendleft(h_prime)
             else:
-                continue
-                
-                
-    print(hospital_match)
+                hospital_pref[h].pop(0)
+
+    return hospital_match
