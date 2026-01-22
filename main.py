@@ -1,10 +1,10 @@
 import sys
-from algorithm import gale_shapley, new_gale_shapley
+from algorithm import gale_shapley
 from util import read_input_file
 
 def main(args):
     file = read_input_file(args[0])
-    print(new_gale_shapley(file[0],file[1],file[2]))
+    print(gale_shapley(file[0],file[1],file[2]))
     
     
 

@@ -22,7 +22,7 @@ def gale_shapley(n: int, hospital_pref: dict[int, list[int]], student_pref: dict
             idx_h = student_pref[a].index(h)
             idx_h_prime = student_pref[a].index(h_prime)
 
-            if idx_h < idx_h_prime:
+            if idx_h <= idx_h_prime:
                 hospital_match[h] = a
                 student_match[a] = h
 
