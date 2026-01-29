@@ -20,7 +20,7 @@ def check_stability(hospital_matching: dict[int,int],
                     student_pref: dict[int, list[int]]):
     
     is_stable = True
-    
+    student_matching = {s: h for h, s in hospital_matching.items()}
     #print(student_pref.keys())
     #check if there is blocking pair
     for h_match, s_match in hospital_matching.items():
@@ -32,7 +32,7 @@ def check_stability(hospital_matching: dict[int,int],
             index_matched_s = hospital_pref[h_match].index(hospital_matching[h_match])
             
             index_unmatched_h = student_pref[s].index(h_match)
-            index_matched_h = student_pref[s].index(s_match)
+            index_matched_h = student_pref[s].index(student_matching[s])
             
             if(index_unmatched_s < index_matched_s and index_unmatched_h < index_matched_h):
                 is_stable = False

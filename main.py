@@ -12,11 +12,11 @@ def main(args):
     print("file[2] ", file[2])
     matching = gale_shapley(file[0],copy.deepcopy(file[1]),copy.deepcopy(file[2]))
     print(matching)
-    # matching = {
-    #     1:1,
-    #     2:3,
-    #     3:2
-    # }
+    matching = {
+        1:1,
+        2:3,
+        3:2
+    }
     print("file[1] after g-s ", file[1])
     result = check_stability(matching,file[1],file[2])
    
