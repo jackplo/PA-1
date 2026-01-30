@@ -12,6 +12,8 @@
 - 'src/matching/algorithm.py' => Contains the implementation of G-S algorithm
 - 'src/verify/verifier.py' => Performs Validity + Stability checks
 - 'src/graph/grapher.py' => Utiliy functions for graphing with matplotlib
+- '/prefs' => The directory containing the preference list inputs for both hospitals and students, with all files named with {'n'.txt}.
+- '/matches' => The directory containing the output to the respective preference list input with the same naming convention as the file in /prefs
 
 ## Requirements/Dependencies
 
@@ -116,3 +118,5 @@ Gale Shapley Algorithm input size vs execution time graph
 
 Verifier Algorithm input size vs execution time graph
 ![Verifier Algorithm input size vs execution time graph](verifier_execution_time.png)
+
+- Based on both line graphs above, the matcher and the verifier running times increase as n increases, pointing towards a polynomial growth. By analyzing the growth rate of the two, we can see that the verifier increases much steeper than the matcher. This suggests that the verifier is closer to a cubic growth (O(n^3)) while the Gale Shapley matching algorithm is closer to O(n^2). This is caused because for each hospital, the verifier considered up to (n-1) students as potential blocking pairs, which adds up to n^2 candidate pairs. Additionally, the verifier uses list.index() which is an O(n) operation leading to a total of O(n^3), hence leading to a steeper curve. Finally, to support this claim, we see that by the time n reaches 1000, the execution time gets to about 0.43 seconds in the Gale-Shapley algorithm, while in the verifier it gets to around 7.94 seconds, indicating quicker growth.

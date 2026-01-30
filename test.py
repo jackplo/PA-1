@@ -26,7 +26,7 @@ def run_gale_shapley_suite(args):
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
 
-        #print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
+        print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
     
         data[0].append(n), data[1].append(elapsed_time)
 
@@ -111,6 +111,8 @@ def run_verifier_suite(pref_path, match_path):
         end_time = time.perf_counter()
         
         elapsed_time = end_time - start_time
+        
+        print(f"Verifier Execution Time: {elapsed_time:0.5f} seconds")
         
         if(match_data and not result):
             print(f"Test with n = {n} ")
