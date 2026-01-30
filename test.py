@@ -9,17 +9,22 @@ import time
 def run_comparison_test(args):
     test_dir = Path(args[0])
 
-    files = [file for file in test_dir.iterdir() if file.is_file()]
+    files = sorted(
+        [file for file in test_dir.iterdir() if file.is_file()],
+        key=lambda path: int(path.stem)
+    )
 
     data: tuple[list[int], list[int]] = ([], [])
 
     for file in files:
         file_data = read_input_file(file)
-
+        print("read input file")
         start_time = time.perf_counter()
         matching = gale_shapley(file_data[0],copy.deepcopy(file_data[1]),copy.deepcopy(file_data[2]))
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
+
+        print(f"Execution Time: {elapsed_time:0.5f} seconds")
     
         data[0].append(file_data[0]), data[1].append(elapsed_time)
 

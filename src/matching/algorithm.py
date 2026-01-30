@@ -1,12 +1,7 @@
-
 from collections import deque
-
 from src.verify.verifier import check_stability
-import time 
 
 def gale_shapley(n: int, hospital_pref: dict[int, list[int]], student_pref: dict[int, list[int]]) -> dict[int, int]:
-    start_time = time.perf_counter()
-    
     hospital_match = {i: 0 for i in range(1, n + 1)}
     student_match = {i: 0 for i in range(1, n + 1)}
 
@@ -41,11 +36,4 @@ def gale_shapley(n: int, hospital_pref: dict[int, list[int]], student_pref: dict
             else:
                 hospital_pref[h].pop(0)
                 
-                
-    #print(hospital_match)
-    #check_stability(hospital_match,hospital_match,student_match)
-
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    print(f"Execution time: {elapsed_time} seconds")
     return hospital_match
