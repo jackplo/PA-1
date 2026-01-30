@@ -74,34 +74,44 @@ def check_file_validity(file_name: str) -> dict[int, int]:
         lines = file.readlines()
 
         if not lines:
-            raise ValueError("ERROR::FILE_FORMAT - Match file is empty")
+            print("INVALID - Match file is empty")
+            return None
 
         for line_num, line in enumerate(lines, start=1):
             line = line.strip()
 
             if not line:
-                raise ValueError(f"ERROR:::FILE_FORMAT - Empty line in match file @ {line_num}")
+                print(f"INVALID - Empty line in match file @ {line_num}")
+                return None
 
             pair = line.split()
 
             if len(pair) != 2:
-                raise ValueError(f"ERROR:::FILE_FORMAT - Invalid format of matching in match file @ {line_num}")
+                print(f"INVALID - Invalid format of matching in match file @ {line_num}")
+                return None
 
             try:
                 hospital = int(pair[0])
                 student = int(pair[1])
             except:
-                raise ValueError(f"ERROR:::FILE_FORMAT - Non-integer value in matching @ {line_num}")
+                print(f"INVALID - Non-integer value in matching @ {line_num}")
+                return None
 
             if hospital in hospital_seen:
-                raise ValueError("Invalid Matching - Output file has duplicate hospitals matched")
+                print("INVALID - Output file has duplicate hospitals matched")
+                return None
             
             if student in student_seen:
-                raise ValueError("Invalid Matching - Output file has duplicate students matched")
+                print("INVALID - Output file has duplicate students matched")
+                return None
 
             hospital_seen.add(hospital)
             student_seen.add(student)
             matches[hospital] = student
+            
+        if 0 in matches.values():
+           print("INVALID - All hospitals not matched to all students")
+           return None
 
         return matches
 
