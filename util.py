@@ -61,10 +61,49 @@ def parse_pref_line(line: str, n: int) -> list[int]:
     return res
 
 def write_output_file(n, matchings: dict[int, int]):
-    with open(f"output/{n}.txt", "w+") as file:
+    with open(f"matches/{n}.txt", "w+") as file:
         for hospital, student in matchings.items():
             file.write(f"{hospital} {student}\n")
-    
+
+def check_file_validity(file_name: str) -> dict[int, int]:
+    matches: dict[int, int] = {}
+    hospital_seen = set()
+    student_seen = set()
+
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+        if not lines:
+            raise ValueError("ERROR::FILE_FORMAT - Match file is empty")
+
+        for line_num, line in enumerate(lines, start=1):
+            line = line.strip()
+
+            if not line:
+                raise ValueError(f"ERROR:::FILE_FORMAT - Empty line in match file @ {line_num}")
+
+            pair = line.split()
+
+            if len(pair) != 2:
+                raise ValueError(f"ERROR:::FILE_FORMAT - Invalid format of matching in match file @ {line_num}")
+
+            try:
+                hospital = int(pair[0])
+                student = int(pair[1])
+            except:
+                raise ValueError(f"ERROR:::FILE_FORMAT - Non-integer value in matching @ {line_num}")
+
+            if hospital in hospital_seen:
+                raise ValueError("Invalid Matching - Output file has duplicate hospitals matched")
+            
+            if student in student_seen:
+                raise ValueError("Invalid Matching - Output file has duplicate students matched")
+
+            hospital_seen.add(hospital)
+            student_seen.add(student)
+            matches[hospital] = student
+
+        return matches
 
 
 '''
@@ -94,4 +133,13 @@ stud {
 2: [1, 2, 3]
 3: [1, 2, 3]
 }
+'''
+
+'''
+File output format
+1 2
+2 1
+3 3
+1 1
+1 2
 '''

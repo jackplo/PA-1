@@ -1,3 +1,4 @@
+''' Old
 def check_validity(n: int, matching: dict[int, int]):
     if 0 in matching.values():
         return "INVALID", "All hospitals not matched to all students"
@@ -13,7 +14,7 @@ def check_validity(n: int, matching: dict[int, int]):
     
     
     return "VALID", "All good"
-    
+'''
     
 def check_stability(hospital_matching: dict[int,int],
                     hospital_pref: dict[int, list[int]], 
