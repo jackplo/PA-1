@@ -26,7 +26,7 @@ def run_gale_shapley_suite(args):
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
 
-        print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
+        #print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
     
         data[0].append(n), data[1].append(elapsed_time)
 
@@ -45,7 +45,7 @@ def run_gale_shapley(pref_file_path):
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
 
-    print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
+    #print(f"GS Execution Time: {elapsed_time:0.5f} seconds")
 
     write_output_file(n, matching)
 
@@ -54,15 +54,25 @@ def run_verifier(pref_file_path, match_file_path):
     match_dir = Path(match_file_path)
 
     match_data = check_file_validity(match_dir)
+    if not match_data:
+        return
+    
     pref_data = read_input_file(pref_dir)
 
     start_time = time.perf_counter()
     result = check_stability(match_data, pref_data[1], pref_data[2])
-    print(result)
+    
+    if(result):
+        print(f"Test with n = {pref_data[0]} ")
+        print("UNSTABLE ", result)
+        
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
-
-    print(f"Verifier Execution Time: {elapsed_time:0.5f} seconds")
+    
+    if(match_data and not result):
+        print(f"Test with n = {pref_data[0]} ")
+        print("VALID STABLE")
+    #print(f"Verifier Execution Time: {elapsed_time:0.5f} seconds")
 
 def run_verifier_suite(pref_path, match_path):
     pref_dir = Path(pref_path)
@@ -83,15 +93,30 @@ def run_verifier_suite(pref_path, match_path):
     for pref_file, match_file in zip(pref_files, match_files):
         pref_data = read_input_file(pref_file)
         match_data = check_file_validity(match_file)
+        
         n = pref_data[0]
 
+        if not match_data:
+            continue
+        
         start_time = time.perf_counter()
         result = check_stability(match_data, pref_data[1], pref_data[2])
-        print(result)
+        
+        if(result):
+            print(f"Test with n = {n} ")
+            print("UNSTABLE ", result)
+            print()
+            
+            
         end_time = time.perf_counter()
+        
         elapsed_time = end_time - start_time
-
-        print(f"Verifier Execution Time: {elapsed_time:0.5f} seconds")
+        
+        if(match_data and not result):
+            print(f"Test with n = {n} ")
+            print("VALID STABLE")
+            print()
+        
 
         data[0].append(n), data[1].append(elapsed_time)
 

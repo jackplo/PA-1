@@ -35,6 +35,6 @@ def check_stability(hospital_matching: dict[int,int],
             index_matched_h = student_pref[s].index(student_matching[s])
             
             if(index_unmatched_s < index_matched_s and index_unmatched_h < index_matched_h):
-                return "NOT STABLE", (h_match, s)
+                return (h_match, s)
            
-    return "STABLE", None
+    return None
