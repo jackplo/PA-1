@@ -2,13 +2,13 @@
 
 ## Authors
 - Goran Not, UFID: 71994424
-- Jack Lohse, UFID: 
+- Jack Lohse, UFID: 70686167
 
 ## Files
 - 'main.py' => Reads input file using util.py functions and calls gale_shapely algorithm
 - 'util.py' => Parses and converts input file into desired format to be passed into G-S algorithm
--'src/matching/algorithm.py' => Contains the implementation of G-S algorithm 
--'src/verify/verifier.py' => Performs Validity + Stability checks
+- 'src/matching/algorithm.py' => Contains the implementation of G-S algorithm 
+- 'src/verify/verifier.py' => Performs Validity + Stability checks
 
 ## Requirements/Dependencies
 - Minimum Python 3.9+ ('dict[int,int]' type hints used)
