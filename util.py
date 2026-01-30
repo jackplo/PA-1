@@ -60,6 +60,12 @@ def parse_pref_line(line: str, n: int) -> list[int]:
         
     return res
 
+def write_output_file(n, matchings: dict[int, int]):
+    with open(f"output/{n}.txt", "w+") as file:
+        for hospital, student in matchings.items():
+            file.write(f"{hospital} {student}\n")
+    
+
 
 '''
 File Input Format:

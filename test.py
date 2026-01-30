@@ -1,7 +1,7 @@
 import copy
 import sys
 from src.matching.algorithm import gale_shapley
-from util import read_input_file
+from util import read_input_file, write_output_file
 from src.graph.grapher import generate_plot
 from pathlib import Path
 import time 
@@ -18,15 +18,18 @@ def run_comparison_test(args):
 
     for file in files:
         file_data = read_input_file(file)
-        print("read input file")
+        n = file_data[0]
+        
         start_time = time.perf_counter()
-        matching = gale_shapley(file_data[0],copy.deepcopy(file_data[1]),copy.deepcopy(file_data[2]))
+        matching = gale_shapley(n ,copy.deepcopy(file_data[1]), copy.deepcopy(file_data[2]))
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
 
         print(f"Execution Time: {elapsed_time:0.5f} seconds")
     
-        data[0].append(file_data[0]), data[1].append(elapsed_time)
+        data[0].append(n), data[1].append(elapsed_time)
+
+        write_output_file(n, matching)
 
     generate_plot(data) 
 
