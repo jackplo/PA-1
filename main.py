@@ -11,7 +11,7 @@ def main(args):
    
     validity = check_validity(file[0], matching)
     print(validity)
-
+   
     result = check_stability(matching,file[1],file[2])
     print(result)
 
